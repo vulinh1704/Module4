@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="41bdee19-d5d3-4498-bfc1-16df95bebf92" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/src/main/java/controller/ChuyenTien.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/src/main/webapp/WEB-INF/views/chuyentien.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Bai1SpringMVC" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai1SpringMVC" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.gradle/7.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.gradle/7.1.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.gradle/7.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.gradle/7.1.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.gradle/7.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.gradle/7.1.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.gradle/7.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.gradle/7.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/build/libs/CurrencyConversion-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/build/libs/CurrencyConversion-1.0-SNAPSHOT.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Bai1_SpringMVC/CurrencyConversion/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2ASNLrbEuCk4tMPfo40SNq7HzZe" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="41bdee19-d5d3-4498-bfc1-16df95bebf92" name="Changes" comment="" />
+      <created>1654998983340</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1654998983340</updated>
+      <workItem from="1654998984883" duration="1352000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
