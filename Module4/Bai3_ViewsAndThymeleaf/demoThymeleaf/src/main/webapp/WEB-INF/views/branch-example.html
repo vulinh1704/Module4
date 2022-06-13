@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Branch Example</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Is Admin</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <th th:text="${user.id}"></th>
+        <th th:text="${user.name}"></th>
+        <th th:text="${user.address}"></th>
+        <th th:if="${user.role} == 1">Yes</th>
+        <th th:unless="${user.role} == 1">No</th>
+    </tr>
+</table>
+<br>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Is Admin</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <th th:text="${user.id}"></th>
+        <th th:text="${user.name}"></th>
+        <th th:text="${user.address}"></th>
+        <th th:switch="${user.role}">
+            <span th:case="1">Admin</span>
+            <span th:case="2">Moderator</span>
+            <span th:case="*">User</span>
+        </th>
+    </tr>
+</table>
+</body>
+</html>

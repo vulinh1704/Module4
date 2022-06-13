@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Condition Operator Example</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Operator</th>
+        <th>Example</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td>If - Then</td>
+        <td>4>2?</td>
+        <td th:text="4<2?'Yes'"></td>
+    </tr>
+    <tr>
+        <td>If - Then - Else</td>
+        <td>4>2?</td>
+        <td th:text="4<2?'Yes':'No'"></td>
+    </tr>
+    <tr>
+        <td>Default</td>
+        <td>null?</td>
+        <td th:text="null?:'CodeGym'"></td>
+    </tr>
+    <tr>
+        <td>Default</td>
+        <td>HaNoi?</td>
+        <td th:text="'HaNoi'?: 'VietNam'"></td>
+    </tr>
+
+</table>
+</body>
+</html>

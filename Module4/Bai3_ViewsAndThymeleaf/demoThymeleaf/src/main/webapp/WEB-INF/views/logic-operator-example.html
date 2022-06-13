@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logic Operator Example</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Operator</th>
+        <th>Example</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td>And</td>
+        <td>True and False</td>
+        <td th:text="true and false"></td>
+    </tr>
+    <tr>
+        <td>or</td>
+        <td>true or false</td>
+        <td th:text="true or false"></td>
+    </tr>
+    <tr>
+        <td>!</td>
+        <td>!true</td>
+        <td th:text="!true"></td>
+    </tr>
+    <tr>
+        <td>Not</td>
+        <td>Not false</td>
+        <td th:text="not false"></td>
+    </tr>
+
+</table>
+</body>
+</html>

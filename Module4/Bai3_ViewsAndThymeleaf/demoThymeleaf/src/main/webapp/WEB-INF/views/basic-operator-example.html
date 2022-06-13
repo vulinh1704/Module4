@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Operator Example</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Operator</th>
+        <th>Example</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td>+</td>
+        <td>2 + 3</td>
+        <td th:text="2+3"></td>
+    </tr>
+    <tr>
+        <td>-</td>
+        <td>6-4</td>
+        <td th:text="6-4"></td>
+    </tr>
+    <tr>
+        <td>/</td>
+        <td>10/4</td>
+        <td th:text="10/4"></td>
+    </tr>
+    <tr>
+        <td>*</td>
+        <td>3*5</td>
+        <td th:text="3*5"></td>
+    </tr>
+    <tr>
+        <td>%</td>
+        <td>20%3</td>
+        <td th:text="20%3"></td>
+    </tr>
+    <tr>
+        <td>-</td>
+        <td>-(2+3)</td>
+        <td th:text="-(2+3)"></td>
+    </tr>
+</table>
+</body>
+</html>

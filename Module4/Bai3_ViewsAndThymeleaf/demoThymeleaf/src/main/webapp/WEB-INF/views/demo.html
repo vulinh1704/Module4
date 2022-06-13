@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<span th:text="${name}"></span>
+<table th:if="${!customerList.isEmpty()}">
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+    </tr>
+    <tr th:each="customer , state:${customerList}">
+        <td th:text="${state.count}"></td>
+        <td th:text="${customer.id}"></td>
+        <td th:text="${customer.name}"></td>
+    </tr>
+</table>
+<a th:href="@{/}">Click go home</a>
+</body>
+</html>
