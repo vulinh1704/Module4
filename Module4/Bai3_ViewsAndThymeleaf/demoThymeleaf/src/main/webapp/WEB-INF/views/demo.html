@@ -5,18 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-<span th:text="${name}"></span>
-<table th:if="${!customerList.isEmpty()}">
-    <tr>
-        <td>Id</td>
-        <td>Name</td>
-    </tr>
-    <tr th:each="customer , state:${customerList}">
-        <td th:text="${state.count}"></td>
-        <td th:text="${customer.id}"></td>
-        <td th:text="${customer.name}"></td>
-    </tr>
-</table>
-<a th:href="@{/}">Click go home</a>
+<!--<span th:text="${name}"></span>-->
+<!--<table th:if="${!customerList.isEmpty()}">-->
+<!--    <tr>-->
+<!--        <td>Id</td>-->
+<!--        <td>Name</td>-->
+<!--    </tr>-->
+<!--    <tr th:each="customer , state:${customerList}">-->
+<!--        <td th:text="${state.count}"></td>-->
+<!--        <td th:text="${customer.id}"></td>-->
+<!--        <td th:text="${customer.name}"></td>-->
+<!--    </tr>-->
+<!--</table>-->
+<!--<a th:href="@{/}">Click go home</a>-->
+Hi
+<form th:action="@{/upload}" th:object="${upload}" th:method="post" enctype="multipart/form-data">
+    File : <input type="file" th:filed="*{file}">
+    <button type="submit">Upload</button>
+</form>
 </body>
 </html>
