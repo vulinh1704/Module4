@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+</head>
+<body>
+<a href="posts/create">
+    Tạo post mới
+</a>
+<form method="get" action="/posts/search">
+    <input type="text" name="title" placeholder="Tìm theo title">
+</form>
+<!--<div  th:each="pro : ${posts}" >-->
+<!--    <span th:text="${pro.getId()}"></span>-->
+<!--    <span th:text="${pro.getTitle()}"></span>-->
+<!--    <span th:text="${pro.getCreateAt()}"></span>-->
+<!--    <span th:text="${pro.getLikes()}"></span>-->
+<!--    <a th:href="@{/posts/edit/__${pro.id}__}">Sửa</a>-->
+<!--</div>-->
+
+<div th:if="${postsByTitle == null}">
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Create at</th>
+            <th>Likes</th>
+            <th>Edit</th>
+        </tr>
+        <th:block th:each="post : ${posts}">
+            <tr>
+                <td th:text="${post.getId()}"></td>
+                <td th:text="${post.getTitle()}"></td>
+                <td th:text="${post.getCreateAt()}"></td>
+                <td th:text="${post.getLikes()}"></td>
+                <td><a th:href="@{/posts/edit/__${post.id}__}">Edit</a></td>
+            </tr>
+        </th:block>
+    </table>
+    <div>
+        <a th:href="@{'/posts'(page=${posts.number - 1})}" th:if="${posts.hasPrevious()}">Previous</a>
+        <span th:text="${posts.number + 1}"></span>/<span th:text="${posts.totalPages}"></span>
+        <a th:href="@{'/posts'(page=${posts.number + 1})}" th:if="${posts.hasNext()}">Next</a>
+    </div>
+</div>
+
+<div th:if="${postsByTitle != null}">
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Create at</th>
+            <th>Likes</th>
+            <th>Edit</th>
+        </tr>
+        <th:block th:each="post : ${postsByTitle}">
+            <tr>
+                <td th:text="${post.getId()}"></td>
+                <td th:text="${post.getTitle()}"></td>
+                <td th:text="${post.getCreateAt()}"></td>
+                <td th:text="${post.getLikes()}"></td>
+                <td><a th:href="@{/posts/edit/__${post.id}__}">Edit</a></td>
+            </tr>
+        </th:block>
+    </table>
+    <div>
+        <a th:href="@{'/posts/search'(page=${postsByTitle.number - 1})}" th:if="${postsByTitle.hasPrevious()}">Previous</a>
+        <span th:text="${postsByTitle.number + 1}"></span>/<span th:text="${postsByTitle.totalPages}"></span>
+        <a th:href="@{'/posts/search'(page=${postsByTitle.number + 1})}" th:if="${postsByTitle.hasNext()}">Next</a>
+    </div>
+</div>
+</body>
+</html>

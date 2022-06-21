@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function getAllClass() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/classes",
+                success: function (data) {
+                    console.log(data);
+                    disPlayName(data);
+                }
+            })
+        }
+
+        function disPlayName(arr) {
+            let rest = "";
+            for (let i = 0; i < arr.length; i++) {
+                rest += arr[i].name + "<br>";
+            }
+            document.getElementById("display").innerHTML = rest;
+        }
+
+        function getAllStudent() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/students",
+                success:function (data) {
+                    console.log(data);
+                    disPlayName(data.content);
+                }
+            })
+        }
+
+        function showFormAdd() {
+            let form = "<input type=\"text\" id=\"name\">\n" +
+                "<input type=\"text\" id=\"score\">\n" +
+                "<input type=\"text\" id=\"age\">\n" +
+                "<input type=\"text\" id=\"clazz\">" +
+                "<button onclick=\"saveStudent()\">Thêm</button>";
+            document.getElementById("display").innerHTML = form;
+        }
+        function saveStudent(){
+            let name = document.getElementById("name").value;
+            let age = document.getElementById("age").value;
+            let score = document.getElementById("name").value;
+            let clazz = document.getElementById("clazz").value;
+            let student = {
+                name: name,
+                score:score,
+                age: age,
+                clazz: {
+                    id :clazz
+                }
+            }
+            console.log(student);
+            $.ajax({
+                headers: {
+                    'Accept' : 'application/json' ,
+                    'Content-Type' : 'application/json',
+                },
+                type : 'POST',
+                url:'http://localhost:8080/api/students',
+                data: JSON.stringify(student),
+                success: getAllStudent,
+                error: function (error) {
+                    console.log(error)
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<button onclick="getAllClass()">Hiển thị danh sách lớp</button>
+<button onclick="getAllStudent()">Hiển thị danh sách học viên</button>
+<button onclick="showFormAdd()">Thêm mới</button>
+
+<div id="display">
+</div>
+</body>
+</html>

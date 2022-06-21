@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"></script>
+
+</head>
+<body onload="getAllProduct()">
+<br>
+<button type="button" data-toggle="modal" data-target="#exampleModal1" class="btn btn-info" onclick="showCategoryAdd()">
+    Add Product
+</button>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Add Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Name</h4>
+                <input type="text" id="nameAddP">
+                <h5>Price</h5>
+                <input type="text" id="priceAddP">
+                <h5>Category</h5>
+                <select id="cate1">
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="addProduct()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<table class="table table-borderless" id="productList">
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="idProduct">
+                <h5>Name</h5>
+                <input type="text" id="name">
+                <h5>Price</h5>
+                <input type="text" id="price">
+                <h5>Category</h5>
+                <select id="cate">
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateProduct()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function getAllCategory() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/categories",
+            success: function (data) {
+                console.log(data);
+                disPlayName(data);
+            }
+        })
+    }
+
+    function showCategoryAdd() {
+        getAllCategory()
+        $('#exampleModal1').modal('show')
+    }
+
+    function disPlayName(array) {
+        let res = "";
+        for (let i = 0; i < array.length; i++) {
+            res += "<option value = '" + array[i].id + "'>" + array[i].name + "</option>\n"
+        }
+        document.getElementById("cate").innerHTML = res;
+        document.getElementById("cate1").innerHTML = res;
+    }
+
+    function getAllProduct() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/products",
+            success: function (data) {
+                console.log(data);
+                disPlayProduct(data);
+            }
+        })
+    }
+
+    function getProduct(product) {
+        return `<tr><th scope="row">${product.id}</th><td>${product.name}</td><td>${product.price}</td><td>${product.category.name}</td>` +
+            `<td>` + showFromEdit(product) + `</td>` +
+            `<td><button class="btn btn-light" onclick="deleteProduct(${product.id})">Delete</button></td></tr>`;
+    }
+
+    function disPlayProduct(data) {
+        let content = "<tr class=\"table-danger\">\n" +
+            "        <th scope=\"col\">Id</th>\n" +
+            "        <th scope=\"col\">Name</th>\n" +
+            "        <th scope=\"col\">Price</th>\n" +
+            "        <th scope=\"col\">Category</th>\n" +
+            "        <th scope=\"col\" >Edit</th>\n" +
+            "        <th scope=\"col\">Delete</th>\n" +
+            "    </tr>";
+        for (let i = 0; i < data.content.length; i++) {
+            content += getProduct(data.content[i]);
+        }
+        document.getElementById('productList').innerHTML = content;
+    }
+
+    function showFromEdit(product) {
+        return `
+                <button type="button" class="btn btn-light" data-target="#exampleModal2" data-toggle="modal" onclick="modalEdit(${product.id})">
+                  Edit
+                </button>`
+    }
+
+    function modalEdit(id) {
+        getAllCategory()
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/products/" + id,
+            success: function (data) {
+                console.log(data);
+                document.getElementById("name").value = data.name;
+                document.getElementById("price").value = data.price;
+                document.getElementById("cate").value = data.category.id;
+                document.getElementById("idProduct").value = data.id;
+                $('#exampleModal').modal('show')
+            }
+        })
+    }
+
+    function updateProduct() {
+        let name = document.getElementById("name").value;
+        let price = document.getElementById("price").value;
+        let category = document.getElementById("cate").value;
+        let idProduct = document.getElementById("idProduct").value;
+        let product = {
+            name: name,
+            price: price,
+            category: {
+                id: category
+            }
+        }
+        console.log(product)
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            type: "PUT",
+            url: "http://localhost:8080/api/products/" + idProduct,
+            data: JSON.stringify(product),
+            success: getAllProduct,
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+
+    function deleteProduct(idProduct) {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            type: "DELETE",
+            url: "http://localhost:8080/api/products/" + idProduct,
+            success: getAllProduct,
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+
+    function addProduct() {
+        let name = document.getElementById("nameAddP").value;
+        let price = document.getElementById("priceAddP").value;
+        let cate = document.getElementById("cate1").value;
+        let product = {
+            name: name,
+            price: price,
+            category: {
+                id: cate
+            }
+        }
+        console.log(product)
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            type: "POST",
+            url: "http://localhost:8080/api/products",
+            data: JSON.stringify(product),
+            success: getAllProduct,
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+</script>
+</body>
+</html>

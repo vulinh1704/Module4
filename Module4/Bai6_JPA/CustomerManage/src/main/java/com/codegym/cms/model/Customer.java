@@ -12,8 +12,8 @@ public class Customer {
     private String firstName;
     private String lastName;
 
-    @ManyToOne
-    @JoinColumn(name = "province_id")
+    @ManyToOne // Đánh dấu quan hệ n - 1
+    @JoinColumn(name = "province_id")// Đặt tên cho trường khóa ngoại
     private Province province;
 
     public Customer() {
