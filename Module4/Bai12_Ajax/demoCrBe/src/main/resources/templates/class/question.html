@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"></script>
+</head>
+<body onload="getAllAnswer()">
+<div id="display">
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+    function getAllAnswer() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/answer",
+            success: function (data) {
+                console.log(data);
+                disPlayAns(data);
+            }
+        })
+
+    }
+
+    function getAllAnswer2() {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/answer",
+            success: function (data) {
+                checkAnswer(data);
+            }
+        })
+
+    }
+
+    function disPlayAns(array) {
+        let res = "";
+        for (let i = 0; i < array.length; i++) {
+            let idd = "hi" + array[i].question.id
+            if (i < 4) {
+                res += `<input type="radio" name = ${idd} value=${array[i].id} id = ${array[i].id}> ,
+                    <label> ${array[i].id} , ${array[i].content} , ${array[i].status}
+                    , ${array[i].question.content} </label><br>`
+
+            }
+            if (i >= 4) {
+                res += `<input type="checkbox" name = ${idd} value=${array[i].id} id = ${array[i].id}> ,
+                    <label> ${array[i].id} , ${array[i].content} , ${array[i].status}
+                    , ${array[i].question.content} </label><br>`
+            }
+        }
+        res += `<button onclick="getAllAnswer2()">Nhấn</button>`
+        document.getElementById("display").innerHTML = res;
+    }
+
+    function checkAnswer(array) {
+        let listIdAns = [];
+        for (let i = 0; i < array.length; i++) {
+            let idd = "hi" + array[i].question.id;
+            let a = document.getElementsByName(idd);
+            for (let j = 0; j < a.length; j++) {
+                if (a[j].checked === true) {
+                    if (!listIdAns.includes(a[j].value)) {
+                        listIdAns.push(a[j].value)
+                    }
+                }
+            }
+        }
+        console.log(listIdAns);
+        let score = 0;
+        for (let i = 0; i < array.length; i++) {
+            for(j = 0 ; j < listIdAns.length; j ++){
+                if(array[i].id === listIdAns[j] && array[i].status === 1){
+                    score++;
+                    break;
+                }
+            }
+        }
+        alert(score)
+    }
+
+</script>

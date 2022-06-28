@@ -16,7 +16,6 @@
 <button type="button" data-toggle="modal" data-target="#exampleModal1" class="btn btn-info" onclick="showCategoryAdd()">
     Add Product
 </button>
-
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -36,20 +35,16 @@
                 </select>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" onclick="addProduct()">Add</button>
             </div>
         </div>
     </div>
 </div>
-
 <br>
 <br>
 <table class="table table-borderless" id="productList">
 </table>
-
-
-<!-- Modal -->
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -154,7 +149,7 @@
                 document.getElementById("price").value = data.price;
                 document.getElementById("cate").value = data.category.id;
                 document.getElementById("idProduct").value = data.id;
-                $('#exampleModal').modal('show')
+                $('#exampleModal2').modal('show')
             }
         })
     }
@@ -180,7 +175,10 @@
             type: "PUT",
             url: "http://localhost:8080/api/products/" + idProduct,
             data: JSON.stringify(product),
-            success: getAllProduct,
+            success: function (){
+                $('#exampleModal2').modal('hide');
+                getAllProduct()
+            },
             error: function (error) {
                 console.log(error)
             }
@@ -222,7 +220,12 @@
             type: "POST",
             url: "http://localhost:8080/api/products",
             data: JSON.stringify(product),
-            success: getAllProduct,
+            success: function () {
+                $('#nameAddP').val("");
+                $('#priceAddP').val("");
+                $('#exampleModal1').modal('hide');
+                getAllProduct();
+            },
             error: function (error) {
                 console.log(error)
             }

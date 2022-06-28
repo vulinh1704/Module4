@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Pageable;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @RestController
@@ -19,8 +22,16 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private HttpSession httpSession;
+
     @GetMapping
-    public ResponseEntity<Iterable> findAll(Pageable pageable) {
+    public ResponseEntity<Iterable> findAll(Pageable pageable , @CookieValue(value = "counter" , defaultValue = "0") Long counter , HttpServletResponse response){
+        System.out.println("Controller");
+        counter++;
+        Cookie cookie = new Cookie("counter" , counter.toString());
+        cookie.setMaxAge(30);
+        response.addCookie(cookie);
         return new ResponseEntity<>(productService.findAll(pageable), HttpStatus.OK);
     }
 
@@ -32,6 +43,13 @@ public class ProductController {
     @PostMapping
     public ResponseEntity add(@RequestBody Product product) {
         productService.save(product);
+        httpSession.setAttribute("product" , product);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("viewSession")
+    public ResponseEntity viewSession() {
+        Product product = (Product) httpSession.getAttribute("product");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

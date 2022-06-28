@@ -19,6 +19,7 @@ public class StudentController {
 
     @GetMapping
     public ResponseEntity<Iterable> findAll(@PageableDefault(value = 2) Pageable pageable) {
+        System.out.println("Controller");
         return new ResponseEntity<>(studentService.findAll(pageable), HttpStatus.OK);
     }
 
