@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"></script>
+
+</head>
+<body onload="showAll(0)">
+<br>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Thêm Nhà
+</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nhà</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form enctype="multipart/form-data" id="form">
+                    <h4>Name</h4>
+                    <input type="text" id="name" class="form-control" name="name">
+                    <label id="nameErr"></label>
+                    <h5>Number Of Bedroom</h5>
+                    <input type="text" id="numberOfBedrooms" class="form-control" name="numberOfBedrooms">
+                    <h5>Number Of Bathroom</h5>
+                    <input type="text" id="numberOfBathrooms" class="form-control" name="numberOfBathrooms">
+                    <h5>Price</h5>
+                    <input type="text" id="price" class="form-control" name="price">
+                    <h5>Image</h5>
+                    <input type="file" name="image" class="form-control" id="image" >
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="add()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form enctype="multipart/form-data" id="formEdit">
+                    <input type="hidden" id="idEdit" name="id">
+                    <h4>Name</h4>
+                    <input type="text" id="nameEdit" class="form-control" name="name">
+                    <h5>Number Of Bedroom</h5>
+                    <input type="text" id="numberOfBedroomsEdit" class="form-control" name="numberOfBedrooms">
+                    <h5>Number Of Bathroom</h5>
+                    <input type="text" id="numberOfBathroomsEdit" class="form-control" name="numberOfBathrooms">
+                    <h5>Price</h5>
+                    <input type="text" id="priceEdit" class="form-control" name="price">
+                    <h5>Image</h5>
+                    <img id="img" style="height: 50px ; width: 50px">
+                    <br>
+                    <br>
+                    <input type="file" name="imageEdit" class="form-control" id="imageEdit" >
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="update()">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table table-bordered table-dark">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Bath Room</th>
+        <th scope="col">Bed Room</th>
+        <th scope="col">Price</th>
+        <th scope="col">Image</th>
+        <th scope="col">Edit</th>
+    </tr>
+    </thead>
+    <tbody id="display">
+    </tbody>
+    <div id="paging"></div>
+</table>
+</body>
+<script type="text/javascript">
+    function showAll(number) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/home?page=" + number,
+            success: function (data) {
+                disPlay(data);
+                if (number >= 0 && number < data.totalPages) {
+                    document.getElementById("paging").innerHTML = `<a onclick="showAll(${data.pageable.pageNumber - 1})" style="color: blue">Before <\a>| <label>Current Page : ${data.pageable.pageNumber + 1}/${data.totalPages}</label>
+                <a onclick="showAll(${data.pageable.pageNumber + 1})" style="color: blue">| Next</a>`
+                }
+            }
+        })
+    }
+
+    function disPlay(data) {
+        let rest = "";
+        for (let i = 0; i < data.content.length; i++) {
+            rest += getHome(data.content[i]);
+        }
+        document.getElementById("display").innerHTML = rest;
+    }
+
+    function getHome(data) {
+        return `<tr><td scope="row">${data.id}</td><td>${data.name}</td><td>${data.numberOfBedrooms}</td><td>${data.numberOfBathrooms}</td>` +
+            `<td>` + data.price + `</td>` +
+            `<td><img src="img/${data.img}" style="width: 50px;height: 50px"></td>` +
+            `<td>` + showFromEdit(data) + `</td></tr>` ;
+    }
+
+    function showFromEdit(data) {
+        return `
+                <button type="button" class="btn btn-light" data-target="#exampleModal2" data-toggle="modal" onclick="modalEdit(${data.id})">
+                  Edit
+                </button>`
+    }
+
+    function modalEdit(id) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/home/" + id,
+            success: function (data) {
+                document.getElementById("idEdit").value = data.id;
+                document.getElementById("nameEdit").value = data.name;
+                document.getElementById("numberOfBedroomsEdit").value = data.numberOfBedrooms;
+                document.getElementById("numberOfBathroomsEdit").value = data.numberOfBathrooms;
+                document.getElementById("priceEdit").value = data.price;
+                document.getElementById("img").src = "img/" + data.img;
+                $('#exampleModal2').modal('show')
+            }
+        })
+    }
+
+    function update() {
+        let id = document.getElementById("idEdit").value;
+        let form = document.getElementById('formEdit');
+        let data = new FormData(form);
+        $.ajax({
+            enctype: 'multipart/form-data',
+            type: "PUT",
+            url: "http://localhost:8080/api/home/" + id,
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 1000000,
+            success: function () {
+                showAll()
+                $('#exampleModal2').modal('hide');
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+    function add() {
+        let form = document.getElementById('form');
+        let data = new FormData(form);
+        $.ajax({
+            enctype: 'multipart/form-data',
+            type: "POST",
+            url: "http://localhost:8080/api/home",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 1000000,
+            success: function () {
+                showAll()
+                $('#exampleModal').modal('hide');
+            },
+            error: function (error) {
+                console.log(error)
+                $('nameErr').text(error.responseJSON.name)
+            }
+        })
+    }
+
+
+</script>
+</html>
