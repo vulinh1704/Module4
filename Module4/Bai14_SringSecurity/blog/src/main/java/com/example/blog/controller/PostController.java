@@ -55,4 +55,12 @@ public class PostController {
         postService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PostMapping("/{id}")
+    public ResponseEntity<Post> findById(@PathVariable Long id){
+        Optional<Post> postOptional = postService.findById(id);
+        if (!postOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(postOptional.get() , HttpStatus.OK);
+    }
 }

@@ -110,18 +110,6 @@ let id;
 let token;
 let storageKey = 'token';
 let storageKeyId = 'id';
-let dataString = localStorage.getItem(storageKey);
-let dataId = localStorage.getItem(storageKeyId)
-if (dataString) {
-    token = JSON.parse(dataString);
-} else {
-    token = "";
-}
-if (dataId){
-    id = JSON.parse(dataId)
-} else {
-    id = "";
-}
 formLogin();
 function formLogin(){
     document.getElementById("form").innerHTML = `<input type="text" placeholder="username"  id = "username"/>
@@ -148,8 +136,8 @@ function login() {
             console.log(data)
             token = data.accessToken;
             id = data.id;
-            localStorage.setItem(storageKey , JSON.stringify(token))
-            localStorage.setItem(storageKeyId , JSON.stringify(id))
+            localStorage.setItem(storageKey , token)
+            localStorage.setItem(storageKeyId , id)
             main();
         },
         error: function (error) {

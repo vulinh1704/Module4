@@ -62,7 +62,8 @@ function upload(e) {
             // Upload completed successfully, now we can get the download URL
             // save this link somewhere, e.g. put it in an input field
             let downloadURL = uploadTask.snapshot.downloadURL;
-            localStorage.setItem(storageKeyImg , JSON.stringify(downloadURL))
+            localStorage.setItem(storageKeyImg , downloadURL)
+            alert(downloadURL)
             let divLocation = document.getElementById("imgDiv");
             let imgElement = document.createElement("img");
             imgElement.src = downloadURL
